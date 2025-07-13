@@ -1,0 +1,27 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
+  "extends": ["ultracite"],
+  "linter": {
+    "rules": {
+      "nursery": {
+        "noUnknownAtRule": "off"
+      },
+      "style": {
+        "useNamingConvention": "error"
+      },
+      "suspicious": {
+        "noConsole": {
+          "level": "error",
+          "options": {
+            "allow": ["assert", "error", "info", "warn"]
+          }
+        }
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded"
+    }
+  }
+}
