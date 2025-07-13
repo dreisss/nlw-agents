@@ -5,11 +5,14 @@
     "dev": "bun run --watch src/server.ts"
   },
   "dependencies": {
+    "@repo/env": "workspace:*",
+    "drizzle-orm": "^0.44.2",
     "elysia": "latest",
-    "@repo/env": "workspaces:*"
+    "postgres": "^3.4.7"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "drizzle-kit": "^0.31.4"
   },
   "module": "src/index.js"
 }
