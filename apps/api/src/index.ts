@@ -9,12 +9,12 @@ const corsPlugin = cors({
 
 const healthRoute = new Elysia().get('/health', 'OK')
 
-const app = new Elysia()
+const api = new Elysia()
   .use(corsPlugin)
   .use(healthRoute)
   .use(getRooms)
   .listen(env.API_PORT)
 
 console.info(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+  `🦊 Elysia is running at ${api.server?.hostname}:${api.server?.port}`
 )
