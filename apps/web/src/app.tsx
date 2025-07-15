@@ -1,14 +1,15 @@
-import { useState } from 'react'
-
-import { Button } from '@/components/ui/button'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { CreateRoom } from './pages/create-room'
+import { Room } from './pages/room'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="grid min-h-screen place-items-center">
-      <Button onClick={() => setCount(count + 1)}>Count: {count}</Button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<CreateRoom />} index />
+        <Route element={<Room />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
