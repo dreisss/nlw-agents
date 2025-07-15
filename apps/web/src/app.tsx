@@ -1,13 +1,14 @@
 import { useState } from 'react'
 
+import { Button } from '@/components/ui/button'
+
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      {/** biome-ignore lint/a11y/useButtonType: template */}
-      <button onClick={() => setCount(count + 1)}>Count: {count}</button>
-    </>
+    <div className="grid min-h-screen place-items-center">
+      <Button onClick={() => setCount(count + 1)}>Count: {count}</Button>
+    </div>
   )
 }
 
