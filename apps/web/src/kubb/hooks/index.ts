@@ -1,8 +1,4 @@
 export type { GetHealthQueryKey } from './useGetHealth.ts'
-export type { GetHealthSuspenseQueryKey } from './useGetHealthSuspense.ts'
 export type { GetRoomsQueryKey } from './useGetRooms.ts'
-export type { GetRoomsSuspenseQueryKey } from './useGetRoomsSuspense.ts'
 export { getHealthQueryKey, getHealth, getHealthQueryOptions, useGetHealth } from './useGetHealth.ts'
-export { getHealthSuspenseQueryKey, getHealthSuspense, getHealthSuspenseQueryOptions, useGetHealthSuspense } from './useGetHealthSuspense.ts'
 export { getRoomsQueryKey, getRooms, getRoomsQueryOptions, useGetRooms } from './useGetRooms.ts'
-export { getRoomsSuspenseQueryKey, getRoomsSuspense, getRoomsSuspenseQueryOptions, useGetRoomsSuspense } from './useGetRoomsSuspense.ts'

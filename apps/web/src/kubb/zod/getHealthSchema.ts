@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
-export const getHealth200Schema = z.any()
+export const getHealth200Schema = z.string()
 
-export const getHealthQueryResponseSchema = z.lazy(() => getHealth200Schema)
+export const getHealthQueryResponseSchema = getHealth200Schema

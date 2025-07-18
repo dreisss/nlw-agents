@@ -20,7 +20,12 @@ export type GetHealthQueryKey = ReturnType<typeof getHealthQueryKey>
 export async function getHealth(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config
 
-  const res = await request<GetHealthQueryResponse, ResponseErrorConfig<Error>, unknown>({ method: 'GET', url: `/health`, ...requestConfig })
+  const res = await request<GetHealthQueryResponse, ResponseErrorConfig<Error>, unknown>({
+    method: 'GET',
+    url: `/health`,
+    baseURL: 'http://localhost:3000',
+    ...requestConfig,
+  })
   return getHealthQueryResponseSchema.parse(res.data)
 }
 

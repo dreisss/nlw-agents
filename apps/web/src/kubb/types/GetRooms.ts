@@ -3,7 +3,16 @@
  * Do not edit manually.
  */
 
-export type GetRooms200 = any
+export type GetRooms200 = {
+  /**
+   * @type string, uuid
+   */
+  id: string
+  /**
+   * @type string
+   */
+  name: string
+}[]
 
 export type GetRoomsQueryResponse = GetRooms200
 

@@ -3,8 +3,13 @@
  * Do not edit manually.
  */
 
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
-export const getRooms200Schema = z.any()
+export const getRooms200Schema = z.array(
+  z.object({
+    id: z.uuid(),
+    name: z.string(),
+  }),
+)
 
-export const getRoomsQueryResponseSchema = z.lazy(() => getRooms200Schema)
+export const getRoomsQueryResponseSchema = getRooms200Schema

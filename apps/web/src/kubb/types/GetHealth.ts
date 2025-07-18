@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-export type GetHealth200 = any
+export type GetHealth200 = string
 
 export type GetHealthQueryResponse = GetHealth200
 

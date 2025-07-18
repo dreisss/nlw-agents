@@ -20,7 +20,12 @@ export type GetRoomsQueryKey = ReturnType<typeof getRoomsQueryKey>
 export async function getRooms(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config
 
-  const res = await request<GetRoomsQueryResponse, ResponseErrorConfig<Error>, unknown>({ method: 'GET', url: `/rooms/`, ...requestConfig })
+  const res = await request<GetRoomsQueryResponse, ResponseErrorConfig<Error>, unknown>({
+    method: 'GET',
+    url: `/rooms/`,
+    baseURL: 'http://localhost:3000',
+    ...requestConfig,
+  })
   return getRoomsQueryResponseSchema.parse(res.data)
 }
 

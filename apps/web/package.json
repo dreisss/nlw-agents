@@ -7,7 +7,7 @@
     "dev": "bunx --bun vite",
     "build": "tsc -b && bunx --bun vite build",
     "preview": "bunx --bun vite preview",
-    "kubb:gen": "bun -e \"await Bun.write('../api/docs.json', await fetch('localhost:3000/docs/json'))\" && kubb generate"
+    "kubb:gen": "bun -e \"await Bun.write('../api/docs.json', await fetch('localhost:3000/docs/json'))\" && bun --env-file=.env kubb generate"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
