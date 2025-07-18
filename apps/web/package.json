@@ -6,12 +6,14 @@
   "scripts": {
     "dev": "bunx --bun vite",
     "build": "tsc -b && bunx --bun vite build",
-    "preview": "bunx --bun vite preview"
+    "preview": "bunx --bun vite preview",
+    "kubb:gen": "bun -e \"await Bun.write('../api/docs.json', await fetch('localhost:3000/docs/json'))\" && kubb generate"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
     "@repo/env": "workspace:*",
     "@tailwindcss/vite": "^4.1.11",
+    "@tanstack/react-query": "^5.83.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.525.0",
@@ -19,9 +21,16 @@
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.3",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "zod": "^4.0.5"
   },
   "devDependencies": {
+    "@kubb/cli": "^3.16.0",
+    "@kubb/core": "^3.16.0",
+    "@kubb/plugin-oas": "^3.16.0",
+    "@kubb/plugin-react-query": "^3.16.0",
+    "@kubb/plugin-ts": "^3.16.0",
+    "@kubb/plugin-zod": "^3.16.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react-swc": "^3.10.2",
