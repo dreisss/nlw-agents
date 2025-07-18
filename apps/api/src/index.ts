@@ -2,7 +2,7 @@ import { cors } from '@elysiajs/cors'
 import { swagger } from '@elysiajs/swagger'
 
 import { env } from '@repo/env'
-import { Elysia } from 'elysia'
+import { Elysia, t } from 'elysia'
 
 import { getRooms } from '@/http/routes/get-rooms'
 
@@ -14,7 +14,9 @@ const swaggerPlugin = swagger({
   path: 'docs',
 })
 
-const healthRoute = new Elysia().get('/health', 'OK')
+const healthRoute = new Elysia().get('/health', 'OK', {
+  response: t.Literal('OK'),
+})
 
 const api = new Elysia()
   .use(corsPlugin)
