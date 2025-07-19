@@ -3,8 +3,8 @@ import { db } from '@/db/connection'
 import { rooms } from '@/db/schema/rooms'
 
 const bodySchema = t.Object({
-  name: t.String({ minLength: 1 }),
-  description: t.Optional(t.String({ minLength: 1 })),
+  name: t.String({ minLength: 3 }),
+  description: t.String(),
 })
 
 const response201Schema = t.Object({

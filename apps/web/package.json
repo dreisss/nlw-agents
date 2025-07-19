@@ -10,18 +10,24 @@
     "kubb:gen": "bun -e \"await Bun.write('../api/docs.json', await fetch('localhost:3000/docs/json'))\" && bun --env-file=.env kubb generate"
   },
   "dependencies": {
+    "@fontsource/geist": "^5.2.6",
+    "@hookform/resolvers": "^5.1.1",
+    "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@repo/env": "workspace:*",
     "@tailwindcss/vite": "^4.1.11",
     "@tanstack/react-query": "^5.83.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
     "lucide-react": "^0.525.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-hook-form": "^7.60.0",
     "react-router-dom": "^7.6.3",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "zod": "^4.0.5"
   },
   "devDependencies": {
     "@kubb/cli": "^3.16.0",

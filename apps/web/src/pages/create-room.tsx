@@ -1,24 +1,16 @@
-import { useGetRooms } from '@/kubb'
-import { Link } from 'react-router-dom'
+import { CreateRoomForm } from '@/components/create-room-form'
+import { RoomsList } from '@/components/rooms-list'
 
 export function CreateRoom() {
-  const { data, error, isLoading } = useGetRooms()
-
-  if (isLoading) {
-    return <div>Carregando...</div>
-  }
-
-  if (error) {
-    return <div>Erro: {error.message}</div>
-  }
-
   return (
-    <ul>
-      {data?.map((room) => (
-        <li key={room.id}>
-          <Link to={`/room/${room.id}`}>{room.name}</Link>
-        </li>
-      ))}
-    </ul>
+    <div className="min-h-screen px-4 py-8">
+      <div className="mx-auto max-w-4xl">
+        <div className="grid grid-cols-2 items-start gap-6">
+          <CreateRoomForm />
+
+          <RoomsList />
+        </div>
+      </div>
+    </div>
   )
 }

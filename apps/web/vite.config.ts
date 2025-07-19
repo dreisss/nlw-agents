@@ -8,6 +8,9 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     port: env.WEB_PORT,
+    watch: {
+      usePolling: true,
+    },
   },
   resolve: {
     alias: {

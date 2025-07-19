@@ -12,15 +12,14 @@ export type PostRooms201 = {
 
 export type PostRoomsMutationRequest = {
   /**
-   * @minLength 1
+   * @minLength 3
    * @type string
    */
   name: string
   /**
-   * @minLength 1
-   * @type string | undefined
+   * @type string
    */
-  description?: string
+  description: string
 }
 
 export type PostRoomsMutationResponse = PostRooms201

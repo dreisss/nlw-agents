@@ -19,7 +19,6 @@ export default defineConfig({
     pluginTs(),
     pluginOas(),
     pluginReactQuery({
-      parser: 'client',
       client: {
         baseURL: `http://localhost:${env.API_PORT}`,
       },
