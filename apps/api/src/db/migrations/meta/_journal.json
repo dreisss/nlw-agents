@@ -8,6 +8,13 @@
       "when": 1752436207332,
       "tag": "0000_cool_vulcan",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1752928576894,
+      "tag": "0001_married_magneto",
+      "breakpoints": true
     }
   ]
 }
