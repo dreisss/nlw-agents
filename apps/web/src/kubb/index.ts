@@ -4,5 +4,3 @@ export type { GetHealth200, GetHealthQueryResponse, GetHealthQuery } from './typ
 export type { GetRooms200, GetRoomsQueryResponse, GetRoomsQuery } from './types/GetRooms.ts'
 export { getHealthQueryKey, getHealth, getHealthQueryOptions, useGetHealth } from './hooks/useGetHealth.ts'
 export { getRoomsQueryKey, getRooms, getRoomsQueryOptions, useGetRooms } from './hooks/useGetRooms.ts'
-export { getHealth200Schema, getHealthQueryResponseSchema } from './zod/getHealthSchema.ts'
-export { getRooms200Schema, getRoomsQueryResponseSchema } from './zod/getRoomsSchema.ts'

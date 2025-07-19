@@ -4,7 +4,6 @@ import { defineConfig } from '@kubb/core'
 import { pluginOas } from '@kubb/plugin-oas'
 import { pluginReactQuery } from '@kubb/plugin-react-query'
 import { pluginTs } from '@kubb/plugin-ts'
-import { pluginZod } from '@kubb/plugin-zod'
 import { env } from '@repo/env'
 
 export default defineConfig({
@@ -19,9 +18,8 @@ export default defineConfig({
   plugins: [
     pluginTs(),
     pluginOas(),
-    pluginZod({ version: '4' }),
     pluginReactQuery({
-      parser: 'zod',
+      parser: 'client',
       client: {
         baseURL: `http://localhost:${env.API_PORT}`,
       },

@@ -3,15 +3,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { CreateRoom } from './pages/create-room'
 import { Room } from './pages/room'
 
-function App() {
-  const queryClient = new QueryClient()
+const queryClient = new QueryClient()
 
+function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
           <Route element={<CreateRoom />} index />
-          <Route element={<Room />} />
+          <Route element={<Room />} path="/room/:roomId" />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

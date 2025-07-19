@@ -7,7 +7,6 @@ import fetch from '@kubb/plugin-client/clients/axios'
 import type { GetHealthQueryResponse } from '../types/GetHealth.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getHealthQueryResponseSchema } from '../zod/getHealthSchema.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getHealthQueryKey = () => [{ url: '/health' }] as const
@@ -26,7 +25,7 @@ export async function getHealth(config: Partial<RequestConfig> & { client?: type
     baseURL: 'http://localhost:3000',
     ...requestConfig,
   })
-  return getHealthQueryResponseSchema.parse(res.data)
+  return res.data
 }
 
 export function getHealthQueryOptions(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
