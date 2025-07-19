@@ -12,6 +12,11 @@ export type GetRooms200 = {
    * @type string
    */
   name: string
+  createdAt: string | string | number
+  /**
+   * @type number
+   */
+  questionsCount: number
 }[]
 
 export type GetRoomsQueryResponse = GetRooms200
