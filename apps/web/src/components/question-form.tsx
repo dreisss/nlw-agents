@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
-import type { PostRoomsByRoomIdQuestionsMutationRequest } from '@/kubb'
+import type { PostRoomQuestionMutationRequest } from '@/kubb'
 import { Button } from './ui/button'
 import {
   Card,
@@ -18,7 +18,7 @@ const formSchema = z.object({
 })
 
 export function QuestionForm() {
-  const form = useForm<PostRoomsByRoomIdQuestionsMutationRequest>({
+  const form = useForm<PostRoomQuestionMutationRequest>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       question: '',
@@ -38,9 +38,12 @@ export function QuestionForm() {
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="space-y-1">
+      <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleCreateQuestion)}>
+          <form
+            className="space-y-1"
+            onSubmit={form.handleSubmit(handleCreateQuestion)}
+          >
             <p className="font-bold">Sua Pergunta</p>
 
             <FormField

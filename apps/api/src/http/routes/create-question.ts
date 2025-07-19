@@ -37,6 +37,9 @@ export const createQuestion = new Elysia().post(
     return status(201, { questionId: insertedQuestion.id })
   },
   {
+    detail: {
+      operationId: 'postRoomQuestion',
+    },
     params: paramsSchema,
     body: bodySchema,
     response: {

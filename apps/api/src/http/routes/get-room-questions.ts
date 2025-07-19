@@ -35,6 +35,9 @@ export const getRoomQuestions = new Elysia().get(
     return result
   },
   {
+    detail: {
+      operationId: 'getRoomQuestions',
+    },
     params: paramsSchema,
     response: responseSchema,
   }
