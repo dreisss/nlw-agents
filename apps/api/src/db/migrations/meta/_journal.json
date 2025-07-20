@@ -15,6 +15,13 @@
       "when": 1752928576894,
       "tag": "0001_married_magneto",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1752976082081,
+      "tag": "0002_huge_radioactive_man",
+      "breakpoints": true
     }
   ]
 }

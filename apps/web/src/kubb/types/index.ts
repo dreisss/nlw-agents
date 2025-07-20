@@ -9,3 +9,10 @@ export type {
   PostRoomQuestionMutation,
 } from './PostRoomQuestion.ts'
 export type { PostRooms201, PostRoomsMutationRequest, PostRoomsMutationResponse, PostRoomsMutation } from './PostRooms.ts'
+export type {
+  PostUploadAudioPathParams,
+  PostUploadAudio201,
+  PostUploadAudioMutationRequest,
+  PostUploadAudioMutationResponse,
+  PostUploadAudioMutation,
+} from './PostUploadAudio.ts'

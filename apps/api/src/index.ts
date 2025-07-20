@@ -4,10 +4,11 @@ import { swagger } from '@elysiajs/swagger'
 import { env } from '@repo/env'
 import { Elysia, t } from 'elysia'
 
+import { createQuestion } from '@/http/routes/create-question'
 import { createRoom } from '@/http/routes/create-room'
+import { getRoomQuestions } from '@/http/routes/get-room-questions'
 import { getRooms } from '@/http/routes/get-rooms'
-import { getRoomQuestions } from './http/routes/get-room-questions'
-import { createQuestion } from './http/routes/create-question'
+import { uploadAudio } from '@/http/routes/upload-audio'
 
 const corsPlugin = cors({
   origin: `http://localhost:${env.WEB_PORT}`,
@@ -32,6 +33,7 @@ const api = new Elysia()
       .use(createRoom)
       .use(getRoomQuestions)
       .use(createQuestion)
+      .use(uploadAudio)
   )
 
   .listen(env.API_PORT)

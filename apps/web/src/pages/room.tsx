@@ -25,9 +25,11 @@ export function Room() {
             </Link>
           </Button>
 
-          <Button variant="secondary">
-            <AudioLines />
-            Gravar Áudio
+          <Button asChild variant="secondary">
+            <Link to={`/room/${roomId}/audio`}>
+              <AudioLines />
+              Gravar Áudio
+            </Link>
           </Button>
         </div>
 

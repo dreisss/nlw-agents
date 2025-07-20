@@ -7,6 +7,7 @@ const envSchema = Type.Object({
   DATABASE_URL: Type.String({ pattern: '^postgresql://.*' }),
   API_PORT: Type.Number({ default: '3000' }),
   WEB_PORT: Type.Number({ default: '3001' }),
+  GEMINI_API_KEY: Type.String(),
 })
 
 export const env = Value.Parse(envSchema, process.env)
