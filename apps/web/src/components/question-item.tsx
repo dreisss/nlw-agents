@@ -1,13 +1,10 @@
 import { Bot, LoaderCircle, MessageSquare } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
+import type { GetRoomQuestionsQueryResponse } from '@/kubb'
+import { dayjs } from '@/lib/dayjs'
 
 type Props = {
-  question: {
-    id: string
-    question: string
-    answer?: string
-    createdAt: string
-  }
+  question: GetRoomQuestionsQueryResponse[0]
 }
 
 export function QuestionItem({ question }: Props) {
@@ -37,7 +34,7 @@ export function QuestionItem({ question }: Props) {
               {question.answer ?? (
                 <>
                   <LoaderCircle className="size-4 animate-spin" />
-                  <span className="italic">Gerando respostas...</span>
+                  <span className="italic">Gerando resposta...</span>
                 </>
               )}
             </p>
@@ -45,7 +42,7 @@ export function QuestionItem({ question }: Props) {
         </div>
 
         <p className="text-end text-muted-foreground text-sm italic">
-          em poucos segundos
+          {dayjs(question.createdAt).toNow()}
         </p>
       </CardContent>
     </Card>

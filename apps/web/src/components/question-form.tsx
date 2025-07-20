@@ -1,7 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
-import type { PostRoomQuestionMutationRequest } from '@/kubb'
+import {
+  type GetRoomQuestionsPathParams,
+  getRoomQuestionsQueryKey,
+  type PostRoomQuestionMutationRequest,
+  usePostRoomQuestion,
+} from '@/kubb'
 import { Button } from './ui/button'
 import {
   Card,
@@ -10,14 +15,25 @@ import {
   CardHeader,
   CardTitle,
 } from './ui/card'
-import { Form, FormField } from './ui/form'
+import { Form, FormField, FormMessage } from './ui/form'
 import { Textarea } from './ui/textarea'
+import { useQueryClient } from '@tanstack/react-query'
 
 const formSchema = z.object({
-  question: z.string(),
+  question: z.string().min(1, { error: 'A pergunta não pode estar em branco' }),
 })
 
-export function QuestionForm() {
+export function QuestionForm({ roomId }: GetRoomQuestionsPathParams) {
+  const queryClient = useQueryClient()
+
+  const { mutateAsync: createQuestion, isSuccess } = usePostRoomQuestion()
+
+  if (isSuccess) {
+    queryClient.invalidateQueries({
+      queryKey: getRoomQuestionsQueryKey(roomId),
+    })
+  }
+
   const form = useForm<PostRoomQuestionMutationRequest>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -25,8 +41,10 @@ export function QuestionForm() {
     },
   })
 
-  function handleCreateQuestion() {
-    return
+  function handleCreateQuestion(data: PostRoomQuestionMutationRequest) {
+    createQuestion({ roomId, data })
+
+    form.reset()
   }
 
   return (
@@ -50,10 +68,14 @@ export function QuestionForm() {
               control={form.control}
               name="question"
               render={({ field }) => (
-                <Textarea
-                  placeholder="O que você gostaria de saber?"
-                  {...field}
-                />
+                <>
+                  <Textarea
+                    placeholder="O que você gostaria de saber?"
+                    {...field}
+                  />
+
+                  <FormMessage />
+                </>
               )}
             />
 
