@@ -18,7 +18,7 @@ export type PostUploadAudioMutationKey = ReturnType<typeof postUploadAudioMutati
  */
 export async function postUploadAudio(
   roomId: PostUploadAudioPathParams['roomId'],
-  data?: PostUploadAudioMutationRequest,
+  data: PostUploadAudioMutationRequest,
   config: Partial<RequestConfig<PostUploadAudioMutationRequest>> & { client?: typeof fetch } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config
@@ -42,7 +42,7 @@ export function usePostUploadAudio<TContext>(
     mutation?: UseMutationOptions<
       PostUploadAudioMutationResponse,
       ResponseErrorConfig<Error>,
-      { roomId: PostUploadAudioPathParams['roomId']; data?: PostUploadAudioMutationRequest },
+      { roomId: PostUploadAudioPathParams['roomId']; data: PostUploadAudioMutationRequest },
       TContext
     > & { client?: QueryClient }
     client?: Partial<RequestConfig<PostUploadAudioMutationRequest>> & { client?: typeof fetch }
@@ -55,7 +55,7 @@ export function usePostUploadAudio<TContext>(
   return useMutation<
     PostUploadAudioMutationResponse,
     ResponseErrorConfig<Error>,
-    { roomId: PostUploadAudioPathParams['roomId']; data?: PostUploadAudioMutationRequest },
+    { roomId: PostUploadAudioPathParams['roomId']; data: PostUploadAudioMutationRequest },
     TContext
   >(
     {

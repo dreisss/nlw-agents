@@ -14,13 +14,16 @@ export type PostUploadAudio201 = {
   /**
    * @type string, uuid
    */
-  questionId: string
+  chunkId: string
 }
 
-/**
- * @default File
- */
-export type PostUploadAudioMutationRequest = Blob
+export type PostUploadAudioMutationRequest = {
+  /**
+   * @default "File"
+   * @type string, binary
+   */
+  file: Blob
+}
 
 export type PostUploadAudioMutationResponse = PostUploadAudio201
 

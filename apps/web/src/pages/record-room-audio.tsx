@@ -1,7 +1,11 @@
 import { useRef, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
-import { type PostUploadAudioPathParams, usePostUploadAudio } from '@/kubb'
+import {
+  type PostUploadAudioMutationRequest,
+  type PostUploadAudioPathParams,
+  usePostUploadAudio,
+} from '@/kubb'
 
 const isRecordingSupported =
   !!navigator.mediaDevices &&
@@ -29,15 +33,17 @@ export function RecordRoomAudio() {
   }
 
   async function uploadAudio(audio: Blob) {
-    const formData = new FormData()
-
-    formData.append('file', audio, 'audio.webm')
-
     if (!roomId) {
       return <Navigate replace to="/" />
     }
 
-    await postUploadAudio({ roomId, data: formData })
+    const formData = new FormData()
+    formData.append('file', audio)
+
+    await postUploadAudio({
+      roomId,
+      data: formData as unknown as PostUploadAudioMutationRequest,
+    })
   }
 
   async function startRecording() {
@@ -57,7 +63,7 @@ export function RecordRoomAudio() {
     })
 
     recorder.current = new MediaRecorder(audio, {
-      mimeType: 'audio/webm',
+      mimeType: 'audio/webm;codec=opus',
       audioBitsPerSecond: 64_000,
     })
 
