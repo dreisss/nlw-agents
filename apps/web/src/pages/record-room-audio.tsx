@@ -20,8 +20,25 @@ export function RecordRoomAudio() {
   const [isRecording, setIsRecording] = useState(false)
   const recorder = useRef<MediaRecorder | null>(null)
 
+  const instervalRef = useRef<NodeJS.Timeout>(null)
+
   if (!roomId) {
     return <Navigate replace to="/" />
+  }
+
+  function createRecorder(audio: MediaStream) {
+    recorder.current = new MediaRecorder(audio, {
+      mimeType: 'audio/webm;codec=opus',
+      audioBitsPerSecond: 64_000,
+    })
+
+    recorder.current.ondataavailable = (event) => {
+      if (event.data.size > 0) {
+        uploadAudio(event.data)
+      }
+    }
+
+    recorder.current.start()
   }
 
   function stopRecording() {
@@ -29,6 +46,10 @@ export function RecordRoomAudio() {
 
     if (recorder.current && recorder.current.state !== 'inactive') {
       recorder.current.stop()
+    }
+
+    if (instervalRef.current) {
+      clearInterval(instervalRef.current)
     }
   }
 
@@ -47,13 +68,6 @@ export function RecordRoomAudio() {
   }
 
   async function startRecording() {
-    if (!isRecordingSupported) {
-      alert('O seu navegador não suporta gravação')
-      return
-    }
-
-    setIsRecording(true)
-
     const audio = await navigator.mediaDevices.getUserMedia({
       audio: {
         echoCancellation: true,
@@ -62,26 +76,20 @@ export function RecordRoomAudio() {
       },
     })
 
-    recorder.current = new MediaRecorder(audio, {
-      mimeType: 'audio/webm;codec=opus',
-      audioBitsPerSecond: 64_000,
-    })
+    createRecorder(audio)
 
-    recorder.current.ondataavailable = (event) => {
-      if (event.data.size > 0) {
-        uploadAudio(event.data)
-      }
+    if (!isRecordingSupported) {
+      alert('O seu navegador não suporta gravação')
+      return
     }
 
-    recorder.current.onstart = () => {
-      console.info('Gravação iniciada!')
-    }
+    setIsRecording(true)
 
-    recorder.current.onstop = () => {
-      console.info('Gravação encerrada/pausada!')
-    }
+    instervalRef.current = setInterval(() => {
+      recorder.current?.stop()
 
-    recorder.current.start()
+      createRecorder(audio)
+    }, 5000)
   }
 
   return (

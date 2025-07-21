@@ -1,8 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
 import {
   type GetRoomQuestionsPathParams,
+  type GetRoomQuestionsQueryResponse,
   getRoomQuestionsQueryKey,
   type PostRoomQuestionMutationRequest,
   usePostRoomQuestion,
@@ -17,7 +19,6 @@ import {
 } from './ui/card'
 import { Form, FormField, FormMessage } from './ui/form'
 import { Textarea } from './ui/textarea'
-import { useQueryClient } from '@tanstack/react-query'
 
 const formSchema = z.object({
   question: z.string().min(1, { error: 'A pergunta não pode estar em branco' }),
@@ -26,13 +27,68 @@ const formSchema = z.object({
 export function QuestionForm({ roomId }: GetRoomQuestionsPathParams) {
   const queryClient = useQueryClient()
 
-  const { mutateAsync: createQuestion, isSuccess } = usePostRoomQuestion()
+  const { mutateAsync: createQuestion } = usePostRoomQuestion({
+    mutation: {
+      onMutate: ({ data }) => {
+        const questions =
+          queryClient.getQueryData<GetRoomQuestionsQueryResponse>(
+            getRoomQuestionsQueryKey(roomId)
+          )
 
-  if (isSuccess) {
-    queryClient.invalidateQueries({
-      queryKey: getRoomQuestionsQueryKey(roomId),
-    })
-  }
+        const questionsArray = questions ?? []
+
+        const newQuestion = {
+          id: crypto.randomUUID(),
+          question: data.question,
+          answer: null,
+          createdAt: new Date().toISOString(),
+        }
+
+        queryClient.setQueryData<GetRoomQuestionsQueryResponse>(
+          getRoomQuestionsQueryKey(roomId),
+          [newQuestion, ...questionsArray]
+        )
+
+        return { newQuestion, questions }
+      },
+
+      onError: (_error, _variables, context) => {
+        if (context?.questions) {
+          queryClient.setQueryData<GetRoomQuestionsQueryResponse>(
+            getRoomQuestionsQueryKey(roomId),
+            context.questions
+          )
+        }
+      },
+
+      onSuccess: ({ questionId, answer }, _variables, { newQuestion }) => {
+        queryClient.setQueryData<GetRoomQuestionsQueryResponse>(
+          getRoomQuestionsQueryKey(roomId),
+          (questions) => {
+            if (!questions) {
+              return questions
+            }
+
+            if (!newQuestion) {
+              return questions
+            }
+
+            return questions.map((question) => {
+              if (question.id === newQuestion.id) {
+                return {
+                  ...newQuestion,
+                  id: questionId,
+                  answer,
+                }
+              }
+
+              return question
+            })
+          }
+        )
+      },
+    },
+  })
 
   const form = useForm<PostRoomQuestionMutationRequest>({
     resolver: zodResolver(formSchema),
@@ -40,6 +96,8 @@ export function QuestionForm({ roomId }: GetRoomQuestionsPathParams) {
       question: '',
     },
   })
+
+  const { isSubmitting } = form.formState
 
   function handleCreateQuestion(data: PostRoomQuestionMutationRequest) {
     createQuestion({ roomId, data })
@@ -72,6 +130,7 @@ export function QuestionForm({ roomId }: GetRoomQuestionsPathParams) {
                   <Textarea
                     placeholder="O que você gostaria de saber?"
                     {...field}
+                    disabled={isSubmitting}
                   />
 
                   <FormMessage />
@@ -79,7 +138,11 @@ export function QuestionForm({ roomId }: GetRoomQuestionsPathParams) {
               )}
             />
 
-            <Button className="mt-2 w-full" type="submit">
+            <Button
+              className="mt-2 w-full"
+              disabled={isSubmitting}
+              type="submit"
+            >
               Enviar pergunta
             </Button>
           </form>

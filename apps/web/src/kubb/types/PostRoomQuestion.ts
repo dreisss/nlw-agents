@@ -15,6 +15,7 @@ export type PostRoomQuestion201 = {
    * @type string, uuid
    */
   questionId: string
+  answer: string | null
 }
 
 export type PostRoomQuestionMutationRequest = {

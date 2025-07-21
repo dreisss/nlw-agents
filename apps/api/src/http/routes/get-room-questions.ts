@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm'
+import { desc, eq } from 'drizzle-orm'
 import { Elysia, t } from 'elysia'
 import { db } from '@/db/connection'
 import { questions } from '@/db/schema/questions'
@@ -30,7 +30,7 @@ export const getRoomQuestions = new Elysia().get(
       })
       .from(questions)
       .where(eq(questions.roomId, roomId))
-      .orderBy(questions.createdAt)
+      .orderBy(desc(questions.createdAt))
 
     return result
   },

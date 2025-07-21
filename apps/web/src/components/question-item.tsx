@@ -12,7 +12,7 @@ export function QuestionItem({ question }: Props) {
     <Card>
       <CardContent className="flex flex-col gap-6">
         <div className="flex gap-3">
-          <span className="flex size-10 items-center justify-center rounded-full bg-muted">
+          <span className="flex aspect-square size-10 items-center justify-center rounded-full bg-muted">
             <MessageSquare className="size-4.5" />
           </span>
 
@@ -23,7 +23,7 @@ export function QuestionItem({ question }: Props) {
           </div>
         </div>
         <div className="flex gap-3">
-          <span className="flex size-10 items-center justify-center rounded-full bg-muted">
+          <span className="flex aspect-square size-10 items-center justify-center rounded-full bg-muted">
             <Bot className="size-4.5" />
           </span>
 
